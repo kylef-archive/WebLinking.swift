@@ -8,29 +8,48 @@
 
 import Foundation
 import XCTest
+import WebLinking
 
-class WebLinkingTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measureBlock() {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
+class LinkTests: XCTestCase {
+  var link:Link!
+
+  override func setUp() {
+    super.setUp()
+    link = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
+  }
+
+  func testHasURI() {
+    XCTAssertEqual(link.uri, "/style.css")
+  }
+
+  func testHasParameters() {
+    XCTAssertEqual(link.parameters, ["rel": "stylesheet", "type": "text/css"])
+  }
+
+  func testHasRelationType() {
+    XCTAssertEqual(link.relationType!, "stylesheet")
+  }
+
+  func testHasReverseRelationType() {
+    let link = Link(uri: "/style.css", parameters: ["rev": "document"])
+    XCTAssertEqual(link.reverseRelationType!, "document")
+  }
+
+  func testHasType() {
+    XCTAssertEqual(link.type!, "text/css")
+  }
+
+  // MARK: Equatable
+
+  func testEquatable() {
+    let otherLink = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
+    XCTAssertEqual(link, otherLink)
+  }
+
+  // MARK: Hashable
+
+  func testHashable() {
+    let otherLink = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
+    XCTAssertEqual(link.hashValue, otherLink.hashValue)
+  }
 }

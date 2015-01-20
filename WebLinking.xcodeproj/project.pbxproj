@@ -10,6 +10,7 @@
 		272A939F1A6E67F8004B3785 /* WebLinking.h in Headers */ = {isa = PBXBuildFile; fileRef = 272A939E1A6E67F8004B3785 /* WebLinking.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		272A93A51A6E67F8004B3785 /* WebLinking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 272A93991A6E67F8004B3785 /* WebLinking.framework */; };
 		272A93AC1A6E67F9004B3785 /* WebLinkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A93AB1A6E67F9004B3785 /* WebLinkingTests.swift */; };
+		272A93BD1A6E6974004B3785 /* WebLinking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 272A93BC1A6E6974004B3785 /* WebLinking.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,6 +33,7 @@
 		272A93B61A6E6897004B3785 /* UniversalFramework_Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Base.xcconfig; sourceTree = "<group>"; };
 		272A93B71A6E6897004B3785 /* UniversalFramework_Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Framework.xcconfig; sourceTree = "<group>"; };
 		272A93B81A6E6897004B3785 /* UniversalFramework_Test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Test.xcconfig; sourceTree = "<group>"; };
+		272A93BC1A6E6974004B3785 /* WebLinking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebLinking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +63,9 @@
 				272A93A81A6E67F8004B3785 /* WebLinkingTests */,
 				272A939A1A6E67F8004B3785 /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		272A939A1A6E67F8004B3785 /* Products */ = {
 			isa = PBXGroup;
@@ -76,6 +80,7 @@
 			isa = PBXGroup;
 			children = (
 				272A939E1A6E67F8004B3785 /* WebLinking.h */,
+				272A93BC1A6E6974004B3785 /* WebLinking.swift */,
 				272A939C1A6E67F8004B3785 /* Supporting Files */,
 			);
 			path = WebLinking;
@@ -223,6 +228,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				272A93BD1A6E6974004B3785 /* WebLinking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,6 +336,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 272A93B71A6E6897004B3785 /* UniversalFramework_Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -338,8 +345,10 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = WebLinking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -347,6 +356,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 272A93B71A6E6897004B3785 /* UniversalFramework_Framework.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -355,6 +365,7 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = WebLinking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
