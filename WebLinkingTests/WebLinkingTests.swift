@@ -65,6 +65,17 @@ class LinkHeaderTests: XCTestCase {
   func testConversionToHeader() {
     XCTAssertEqual(link.header, "</style.css>; rel=\"stylesheet\"; type=\"text/css\"")
   }
+
+  func testParsingHeader() {
+    let parsedLink = Link(header: "</style.css>; rel=\"stylesheet\"; type=\"text/css\"")
+    XCTAssertEqual(parsedLink, link)
+  }
+
+  func testParsingLinksHeader() {
+    let links = parseLinkHeader("</style.css>; rel=\"stylesheet\"; type=\"text/css\"")
+    XCTAssertEqual(links[0], link)
+    XCTAssertEqual(links.count, 1)
+  }
 }
 
 class LinkHTMLTests: XCTestCase {
