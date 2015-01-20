@@ -53,3 +53,16 @@ class LinkTests: XCTestCase {
     XCTAssertEqual(link.hashValue, otherLink.hashValue)
   }
 }
+
+class LinkHeaderTests: XCTestCase {
+  var link:Link!
+
+  override func setUp() {
+    super.setUp()
+    link = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
+  }
+
+  func testConversionToHeader() {
+    XCTAssertEqual(link.header, "</style.css>; rel=\"stylesheet\"; type=\"text/css\"")
+  }
+}

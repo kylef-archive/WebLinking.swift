@@ -41,3 +41,14 @@ public struct Link: Equatable, Hashable {
 public func ==(lhs:Link, rhs:Link) -> Bool {
   return lhs.uri == rhs.uri && lhs.parameters == rhs.parameters
 }
+
+/// An extension to Link to provide conversion to a "Link" header
+extension Link {
+  /// Encode the link into a header
+  public var header:String {
+    let components = ["<\(uri)>"] + map(parameters) { (key, value) in
+      "\(key)=\"\(value)\""
+    }
+    return join("; ", components)
+  }
+}
