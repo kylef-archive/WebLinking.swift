@@ -52,3 +52,15 @@ extension Link {
     return join("; ", components)
   }
 }
+
+/// An extension to Link to provide conversion to a HTML element
+extension Link {
+  /// Encode the link into a HTML element
+  public var html:String {
+    let components = map(parameters) { (key, value) in
+      "\(key)=\"\(value)\""
+    } + ["href=\"\(uri)\""]
+    let elements = join(" ", components)
+    return "<link \(elements) />"
+  }
+}
