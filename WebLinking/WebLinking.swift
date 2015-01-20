@@ -89,6 +89,47 @@ public func parseLinkHeader(header:String) -> [Link] {
   }
 }
 
+/// An extension to NSHTTPURLResponse adding a links property
+extension NSHTTPURLResponse {
+  /// Parses the links on the response `Link` header
+  public var links:[Link] {
+    if let linkHeader = allHeaderFields["Link"] as? String {
+      return parseLinkHeader(linkHeader).map { link in
+        var uri = link.uri
+
+        /// Handle relative URIs
+        if let baseURL = self.URL {
+          if let URL = NSURL(string: uri, relativeToURL: baseURL) {
+            if let uriString = URL.absoluteString {
+              uri = uriString
+            }
+          }
+        }
+
+        return Link(uri: uri, parameters: link.parameters)
+      }
+    }
+
+    return []
+  }
+
+  /// Finds a link which has matching parameters
+  public func findLink(parameters:[String:String]) -> Link? {
+    for link in links {
+      if link.parameters ~= parameters {
+        return link
+      }
+    }
+
+    return nil
+  }
+
+  /// Find a link for the relation
+  public func findLink(# relation:String) -> Link? {
+    return findLink(["rel": relation])
+  }
+}
+
 /// MARK: Private methods (used by link header conversion)
 
 // Merge two dictionaries together
@@ -104,6 +145,17 @@ func +<K,V>(lhs:Dictionary<K,V>, rhs:Dictionary<K,V>) -> Dictionary<K,V> {
   }
 
   return dictionary
+}
+
+/// LHS contains all the keys and values from RHS
+func ~=(lhs:[String:String], rhs:[String:String]) -> Bool {
+  for (key, value) in rhs {
+    if lhs[key] != value {
+      return false
+    }
+  }
+
+  return true
 }
 
 // Separate a trim a string by a separator
