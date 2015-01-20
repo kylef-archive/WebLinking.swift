@@ -29,6 +29,9 @@
 		272A93A41A6E67F8004B3785 /* WebLinkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebLinkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		272A93AA1A6E67F9004B3785 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		272A93AB1A6E67F9004B3785 /* WebLinkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebLinkingTests.swift; sourceTree = "<group>"; };
+		272A93B61A6E6897004B3785 /* UniversalFramework_Base.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Base.xcconfig; sourceTree = "<group>"; };
+		272A93B71A6E6897004B3785 /* UniversalFramework_Framework.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Framework.xcconfig; sourceTree = "<group>"; };
+		272A93B81A6E6897004B3785 /* UniversalFramework_Test.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = UniversalFramework_Test.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +56,7 @@
 		272A938F1A6E67F8004B3785 = {
 			isa = PBXGroup;
 			children = (
+				272A93B51A6E6897004B3785 /* Configurations */,
 				272A939B1A6E67F8004B3785 /* WebLinking */,
 				272A93A81A6E67F8004B3785 /* WebLinkingTests */,
 				272A939A1A6E67F8004B3785 /* Products */,
@@ -100,6 +104,16 @@
 				272A93AA1A6E67F9004B3785 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		272A93B51A6E6897004B3785 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				272A93B61A6E6897004B3785 /* UniversalFramework_Base.xcconfig */,
+				272A93B71A6E6897004B3785 /* UniversalFramework_Framework.xcconfig */,
+				272A93B81A6E6897004B3785 /* UniversalFramework_Test.xcconfig */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +328,7 @@
 		};
 		272A93B01A6E67F9004B3785 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 272A93B71A6E6897004B3785 /* UniversalFramework_Framework.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -323,7 +338,6 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = WebLinking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -331,6 +345,7 @@
 		};
 		272A93B11A6E67F9004B3785 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 272A93B71A6E6897004B3785 /* UniversalFramework_Framework.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -340,7 +355,6 @@
 				FRAMEWORK_VERSION = A;
 				INFOPLIST_FILE = WebLinking/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -348,32 +362,24 @@
 		};
 		272A93B31A6E67F9004B3785 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 272A93B81A6E6897004B3785 /* UniversalFramework_Test.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WebLinkingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		272A93B41A6E67F9004B3785 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 272A93B81A6E6897004B3785 /* UniversalFramework_Test.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
 				INFOPLIST_FILE = WebLinkingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -397,6 +403,7 @@
 				272A93B11A6E67F9004B3785 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		272A93B21A6E67F9004B3785 /* Build configuration list for PBXNativeTarget "WebLinkingTests" */ = {
 			isa = XCConfigurationList;
@@ -405,6 +412,7 @@
 				272A93B41A6E67F9004B3785 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
