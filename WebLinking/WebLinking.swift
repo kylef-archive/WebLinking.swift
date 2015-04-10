@@ -179,7 +179,7 @@ func split(separator:String)(input:String) -> (String, String) {
 }
 
 // Separate the first element in an array from the rest
-func takeFirst(input:[String]) -> (String, Slice<String>) {
+func takeFirst(input:[String]) -> (String, ArraySlice<String>) {
   if let first = input.first {
     let items = input[input.startIndex.successor() ..< input.endIndex]
     return (first, items)
