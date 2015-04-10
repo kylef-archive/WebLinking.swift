@@ -1,8 +1,6 @@
 Web Linking
 ===========
 
-[![Build Status](http://img.shields.io/travis/kylef/WebLinking.swift/master.svg?style=flat)](https://travis-ci.org/kylef/WebLinking.swift)
-
 Swift implementation of Web Linking ([RFC5988](https://tools.ietf.org/html/rfc5988)).
 
 ## Installation
