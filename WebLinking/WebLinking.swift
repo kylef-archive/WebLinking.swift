@@ -10,14 +10,19 @@ import Foundation
 
 /// A structure representing a RFC 5988 link.
 public struct Link: Equatable, Hashable {
+  /// The URI for the link
   public let uri:String
+
+  /// The parameters for the link
   public let parameters:[String:String]
 
-  public init(uri:String, parameters:[String:String] = [:]) {
+  /// Initialize a Link with a given uri and parameters
+  public init(uri:String, parameters:[String:String]? = nil) {
     self.uri = uri
-    self.parameters = parameters
+    self.parameters = parameters ?? [:]
   }
 
+  /// Returns the hash value
   public var hashValue:Int {
     return uri.hashValue
   }
@@ -38,6 +43,7 @@ public struct Link: Equatable, Hashable {
   }
 }
 
+/// Returns whether two Link's are equivalent
 public func ==(lhs:Link, rhs:Link) -> Bool {
   return lhs.uri == rhs.uri && lhs.parameters == rhs.parameters
 }
@@ -58,7 +64,7 @@ extension Link {
 
 // MARK: Header link conversion
 
-/// An extension to Link to provide conversion to a "Link" header
+/// An extension to Link to provide conversion to and from a HTTP "Link" header
 extension Link {
   /// Encode the link into a header
   public var header:String {
@@ -68,6 +74,9 @@ extension Link {
     return join("; ", components)
   }
 
+  /*** Initialize a Link with a HTTP Link header
+  :param: header A HTTP Link Header
+  */
   public init(header:String) {
     let (uri, parametersString) = takeFirst(separateBy(";")(input: header))
     let parameters = parametersString.map(split("=")).map { parameter in
