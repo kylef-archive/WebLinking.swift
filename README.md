@@ -1,11 +1,10 @@
-Web Linking
-===========
+# Web Linking
 
 Swift implementation of Web Linking ([RFC5988](https://tools.ietf.org/html/rfc5988)).
 
 ## Installation
 
-[CocoaPods](http://cocoapods.org/) is the recommended installation method.
+[CocoaPods](https://cocoapods.org/) is the recommended installation method.
 
 ```ruby
 pod 'WebLinking'
@@ -24,7 +23,7 @@ We can find the next link on a response:
 
 ```swift
 if let link = response.findLink(relation: "next") {
-  println("We have a next link with the URI: \(link.uri).")
+  print("We have a next link with the URI: \(link.uri).")
 }
 ```
 
@@ -32,7 +31,7 @@ Or introspect all available links:
 
 ```swift
 for link in response.links {
-  println("We have a link with the relation: \(link.relationType) to \(link.uri).")
+  print("We have a link with the relation: \(link.relationType) to \(link.uri).")
 }
 ```
 
@@ -40,4 +39,3 @@ for link in response.links {
 
 Web Linking is licensed under the MIT license. See [LICENSE](LICENSE) for more
 info.
-
