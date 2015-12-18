@@ -83,7 +83,8 @@
 				272A93BC1A6E6974004B3785 /* WebLinking.swift */,
 				272A939C1A6E67F8004B3785 /* Supporting Files */,
 			);
-			path = WebLinking;
+			name = WebLinking;
+			path = Sources;
 			sourceTree = "<group>";
 		};
 		272A939C1A6E67F8004B3785 /* Supporting Files */ = {
@@ -100,7 +101,8 @@
 				272A93AB1A6E67F9004B3785 /* WebLinkingTests.swift */,
 				272A93A91A6E67F9004B3785 /* Supporting Files */,
 			);
-			path = WebLinkingTests;
+			name = WebLinkingTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		272A93A91A6E67F9004B3785 /* Supporting Files */ = {
@@ -352,7 +354,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = WebLinking/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocode.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -372,7 +374,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				FRAMEWORK_VERSION = A;
-				INFOPLIST_FILE = WebLinking/Info.plist;
+				INFOPLIST_FILE = Sources/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocode.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -389,7 +391,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = WebLinkingTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocode.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -400,7 +402,7 @@
 			baseConfigurationReference = 272A93B81A6E6897004B3785 /* UniversalFramework_Test.xcconfig */;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
-				INFOPLIST_FILE = WebLinkingTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocode.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
