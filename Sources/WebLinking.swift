@@ -156,23 +156,27 @@ func ~=(lhs: [String: String], rhs: [String: String]) -> Bool {
 }
 
 /// Separate a trim a string by a separator
-func separateBy(separator: String)(_ input: String) -> [String] {
-  return input.componentsSeparatedByString(separator).map {
-    $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+func separateBy(separator: String) -> (String) -> [String] {
+  return { input in
+    return input.componentsSeparatedByString(separator).map {
+      $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    }
   }
 }
 
 /// Split a string by a separator into two components
-func split(separator: String)(_ input: String) -> (String, String) {
-  let range = input.rangeOfString(separator, options: NSStringCompareOptions(rawValue: 0), range: nil, locale: nil)
+func split(separator: String) -> (String) -> (String, String) {
+  return { input in
+    let range = input.rangeOfString(separator, options: NSStringCompareOptions(rawValue: 0), range: nil, locale: nil)
 
-  if let range = range {
-    let lhs = input.substringToIndex(range.startIndex)
-    let rhs = input.substringFromIndex(range.endIndex)
-    return (lhs, rhs)
+    if let range = range {
+      let lhs = input.substringToIndex(range.startIndex)
+      let rhs = input.substringFromIndex(range.endIndex)
+      return (lhs, rhs)
+    }
+
+    return (input, "")
   }
-
-  return (input, "")
 }
 
 /// Separate the first element in an array from the rest
@@ -186,10 +190,12 @@ func takeFirst(input: [String]) -> (String, ArraySlice<String>) {
 }
 
 /// Trim a prefix and suffix from a string
-func trim(lhs: Character, _ rhs: Character)(_ input: String) -> String {
-  if input.hasPrefix("\(lhs)") && input.hasSuffix("\(rhs)") {
-    return input[input.startIndex.successor()..<input.endIndex.predecessor()]
-  }
+func trim(lhs: Character, _ rhs: Character) -> (String) -> String {
+  return { input in
+    if input.hasPrefix("\(lhs)") && input.hasSuffix("\(rhs)") {
+      return input[input.startIndex.successor()..<input.endIndex.predecessor()]
+    }
 
-  return input
+    return input
+  }
 }
