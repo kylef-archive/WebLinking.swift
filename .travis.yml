@@ -1,8 +1,10 @@
 matrix:
   include:
-    - language: objective-c
+    - los: osx
+      anguage: objective-c
       osx_image: xcode7.3
-    - language: objective-c
+    - os: osx
+      language: objective-c
       osx_image: xcode8
 
 script:
