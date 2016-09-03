@@ -100,7 +100,7 @@ extension NSHTTPURLResponse {
 
         /// Handle relative URIs
         if let baseURL = self.URL, URL = NSURL(string: uri, relativeToURL: baseURL) {
-          uri = URL.absoluteString
+          uri = URL.absoluteString!
         }
 
         return Link(uri: uri, parameters: link.parameters)
