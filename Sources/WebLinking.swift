@@ -99,8 +99,8 @@ extension NSHTTPURLResponse {
         var uri = link.uri
 
         /// Handle relative URIs
-        if let baseURL = self.URL, absoluteString = NSURL(string: uri, relativeToURL: baseURL)?.absoluteString {
-          uri = absoluteString
+        if let baseURL = self.URL, relativeURI = NSURL(string: uri, relativeToURL: baseURL)?.absoluteString {
+          uri = relativeURI
         }
 
         return Link(uri: uri, parameters: link.parameters)
