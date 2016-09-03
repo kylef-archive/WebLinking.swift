@@ -1,5 +1,10 @@
-language: objective-c
-osx_image: xcode8
+matrix:
+  include:
+    - language: objective-c
+      osx_image: xcode7.3
+    - language: objective-c
+      osx_image: xcode8
+
 script:
 - set pipefail
 - xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk macosx | xcpretty
