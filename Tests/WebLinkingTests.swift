@@ -69,22 +69,22 @@ class LinkHeaderTests: XCTestCase {
   }
 
   func testResponseLinks() {
-    let url = NSURL(string: "http://test.com/")!
+    let url = URL(string: "http://test.com/")!
     let headers = [
       "Link": "</style.css>; rel=\"stylesheet\"; type=\"text/css\"",
     ]
-    let response = NSHTTPURLResponse(URL: url, statusCode: 200, HTTPVersion: nil, headerFields: headers)!
+    let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headers)!
     let link = Link(uri: "http://test.com/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
 
     XCTAssertEqual(response.links, [link])
   }
 
   func testResponseFindLinkParameters() {
-    let url = NSURL(string: "http://test.com/")!
+    let url = URL(string: "http://test.com/")!
     let headers = [
       "Link": "</style.css>; rel=\"stylesheet\"; type=\"text/css\", </style.css>; rel=\"stylesheet\"; type=\"text/css\"",
     ]
-    let response = NSHTTPURLResponse(URL: url, statusCode: 200, HTTPVersion: nil, headerFields: headers)!
+    let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headers)!
     let link = Link(uri: "http://test.com/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
     let foundLink = response.findLink(["rel": "stylesheet"])!
 
@@ -92,11 +92,11 @@ class LinkHeaderTests: XCTestCase {
   }
 
   func testResponseFindLinkRelation() {
-    let url = NSURL(string: "http://test.com/")!
+    let url = URL(string: "http://test.com/")!
     let headers = [
       "Link": "</style.css>; rel=\"stylesheet\"; type=\"text/css\", </style.css>; rel=\"stylesheet\"; type=\"text/css\"",
     ]
-    let response = NSHTTPURLResponse(URL: url, statusCode: 200, HTTPVersion: nil, headerFields: headers)!
+    let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headers)!
     let link = Link(uri: "http://test.com/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
     let foundLink = response.findLink(relation: "stylesheet")!
 

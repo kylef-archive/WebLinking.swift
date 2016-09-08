@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = 'WebLinking'
-  spec.version = '1.1.0'
+  spec.version = '3.0.0'
   spec.summary = 'Swift implementation of Web Linking and Link headers (RFC5988)'
   spec.homepage = 'https://github.com/kylef/WebLinking.swift'
   spec.license = { :type => 'MIT', :file => 'LICENSE' }

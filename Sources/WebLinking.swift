@@ -49,7 +49,7 @@ extension Link {
     let components = parameters.map { key, value in
       "\(key)=\"\(value)\""
       } + ["href=\"\(uri)\""]
-    let elements = components.joinWithSeparator(" ")
+    let elements = components.joined(separator: " ")
     return "<link \(elements) />"
   }
 }
@@ -63,7 +63,7 @@ extension Link {
     let components = ["<\(uri)>"] + parameters.map { key, value in
       "\(key)=\"\(value)\""
     }
-    return components.joinWithSeparator("; ")
+    return components.joined(separator: "; ")
   }
 
   /*** Initialize a Link with a HTTP Link header
@@ -76,7 +76,7 @@ extension Link {
     }
 
     self.uri = trim("<", ">")(uri)
-    self.parameters = parameters.reduce([:], combine: +)
+    self.parameters = parameters.reduce([:], +)
   }
 }
 
@@ -84,14 +84,14 @@ extension Link {
 - parameter header: RFC5988 link header. For example `<?page=3>; rel=\"next\", <?page=1>; rel=\"prev\"`
 :return: An array of Links
 */
-public func parseLinkHeader(header: String) -> [Link] {
+public func parseLinkHeader(_ header: String) -> [Link] {
   return separateBy(",")(header).map { string in
     return Link(header: string)
   }
 }
 
 /// An extension to NSHTTPURLResponse adding a links property
-extension NSHTTPURLResponse {
+extension HTTPURLResponse {
   /// Parses the links on the response `Link` header
   public var links: [Link] {
     if let linkHeader = allHeaderFields["Link"] as? String {
@@ -99,7 +99,7 @@ extension NSHTTPURLResponse {
         var uri = link.uri
 
         /// Handle relative URIs
-        if let baseURL = self.URL, relativeURI = NSURL(string: uri, relativeToURL: baseURL)?.absoluteString {
+        if let baseURL = self.url, let relativeURI = URL(string: uri, relativeTo: baseURL)?.absoluteString {
           uri = relativeURI
         }
 
@@ -111,7 +111,7 @@ extension NSHTTPURLResponse {
   }
 
   /// Finds a link which has matching parameters
-  public func findLink(parameters: [String: String]) -> Link? {
+  public func findLink(_ parameters: [String: String]) -> Link? {
     for link in links {
       if link.parameters ~= parameters {
         return link
@@ -122,7 +122,7 @@ extension NSHTTPURLResponse {
   }
 
   /// Find a link for the relation
-  public func findLink(relation  relation: String) -> Link? {
+  public func findLink(relation: String) -> Link? {
     return findLink(["rel": relation])
   }
 }
@@ -156,22 +156,22 @@ func ~=(lhs: [String: String], rhs: [String: String]) -> Bool {
 }
 
 /// Separate a trim a string by a separator
-func separateBy(separator: String) -> (String) -> [String] {
+func separateBy(_ separator: String) -> (String) -> [String] {
   return { input in
-    return input.componentsSeparatedByString(separator).map {
-      $0.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
+    return input.components(separatedBy: separator).map {
+      $0.trimmingCharacters(in: CharacterSet.whitespaces)
     }
   }
 }
 
 /// Split a string by a separator into two components
-func split(separator: String) -> (String) -> (String, String) {
+func split(_ separator: String) -> (String) -> (String, String) {
   return { input in
-    let range = input.rangeOfString(separator, options: NSStringCompareOptions(rawValue: 0), range: nil, locale: nil)
+    let range = input.range(of: separator, options: NSString.CompareOptions(rawValue: 0), range: nil, locale: nil)
 
     if let range = range {
-      let lhs = input.substringToIndex(range.startIndex)
-      let rhs = input.substringFromIndex(range.endIndex)
+      let lhs = input.substring(to: range.lowerBound)
+      let rhs = input.substring(from: range.upperBound)
       return (lhs, rhs)
     }
 
@@ -180,9 +180,9 @@ func split(separator: String) -> (String) -> (String, String) {
 }
 
 /// Separate the first element in an array from the rest
-func takeFirst(input: [String]) -> (String, ArraySlice<String>) {
+func takeFirst(_ input: [String]) -> (String, ArraySlice<String>) {
   if let first = input.first {
-    let items = input[input.startIndex.successor() ..< input.endIndex]
+    let items = input[input.indices.suffix(from: (input.startIndex + 1))]
     return (first, items)
   }
 
@@ -190,10 +190,10 @@ func takeFirst(input: [String]) -> (String, ArraySlice<String>) {
 }
 
 /// Trim a prefix and suffix from a string
-func trim(lhs: Character, _ rhs: Character) -> (String) -> String {
+func trim(_ lhs: Character, _ rhs: Character) -> (String) -> String {
   return { input in
     if input.hasPrefix("\(lhs)") && input.hasSuffix("\(rhs)") {
-      return input[input.startIndex.successor()..<input.endIndex.predecessor()]
+      return input[input.characters.index(after: input.startIndex)..<input.characters.index(before: input.endIndex)]
     }
 
     return input
