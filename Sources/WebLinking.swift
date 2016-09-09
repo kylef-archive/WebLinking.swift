@@ -84,7 +84,7 @@ extension Link {
 - parameter header: RFC5988 link header. For example `<?page=3>; rel=\"next\", <?page=1>; rel=\"prev\"`
 :return: An array of Links
 */
-public func parseLinkHeader(_ header: String) -> [Link] {
+public func parseLink(header: String) -> [Link] {
   return separateBy(",")(header).map { string in
     return Link(header: string)
   }
@@ -95,7 +95,7 @@ extension HTTPURLResponse {
   /// Parses the links on the response `Link` header
   public var links: [Link] {
     if let linkHeader = allHeaderFields["Link"] as? String {
-      return parseLinkHeader(linkHeader).map { link in
+      return parseLink(header: linkHeader).map { link in
         var uri = link.uri
 
         /// Handle relative URIs
