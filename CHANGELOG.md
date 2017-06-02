@@ -1,5 +1,9 @@
 # Changelog for WebLinking
 
+## 2.0.0
+
+Adds support for Swift 3.
+
 ## 1.1.0
 
 ### Enhancements
