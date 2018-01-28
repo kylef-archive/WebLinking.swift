@@ -193,7 +193,7 @@ func takeFirst(_ input: [String]) -> (String, ArraySlice<String>) {
 func trim(_ lhs: Character, _ rhs: Character) -> (String) -> String {
   return { input in
     if input.hasPrefix("\(lhs)") && input.hasSuffix("\(rhs)") {
-      return String(input[input.characters.index(after: input.startIndex)..<input.characters.index(before: input.endIndex)])
+      return String(input[input.index(after: input.startIndex)..<input.index(before: input.endIndex)])
     }
 
     return input
