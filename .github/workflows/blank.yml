@@ -9,9 +9,10 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
+    - name: Install cocoapods
+      run: gem install cocoapods
     - name: Run a multi-line script
       run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+        xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk macosx | xcpretty
+        xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+        pod lib lint --quick
