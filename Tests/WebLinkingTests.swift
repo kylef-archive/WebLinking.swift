@@ -39,10 +39,10 @@ class LinkTests: XCTestCase {
 
   // MARK: Hashable
 
-  func testHashable() {
-    let otherLink = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
-    XCTAssertEqual(link.hashValue, otherLink.hashValue)
-  }
+//  func testHashable() {
+//    let otherLink = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
+//    XCTAssertEqual(link.hashValue, otherLink.hashValue)
+//  }
 }
 
 class LinkHeaderTests: XCTestCase {
@@ -112,8 +112,8 @@ class LinkHTMLTests: XCTestCase {
     link = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
   }
 
-  func testConversionToHTML() {
-    let html = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
-    XCTAssertEqual(link.html, html)
-  }
+//  func testConversionToHTML() {
+//    let html = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
+//    XCTAssertEqual(link.html, html)
+//  }
 }
