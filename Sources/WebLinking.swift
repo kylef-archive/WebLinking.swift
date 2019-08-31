@@ -14,11 +14,6 @@ public struct Link: Equatable, Hashable {
     self.parameters = parameters ?? [:]
   }
 
-//  /// Returns the hash value
-//  public var hashValue: Int {
-//    return uri.hashValue
-//  }
-
   /// Relation type of the Link.
   public var relationType: String? {
     return parameters["rel"]
@@ -34,11 +29,6 @@ public struct Link: Equatable, Hashable {
     return parameters["type"]
   }
 }
-
-///// Returns whether two Link's are equivalent
-//public func == (lhs: Link, rhs: Link) -> Bool {
-//  return lhs.uri == rhs.uri && lhs.parameters == rhs.parameters
-//}
 
 // MARK: HTML Element Conversion
 

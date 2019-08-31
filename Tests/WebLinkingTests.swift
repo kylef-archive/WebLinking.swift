@@ -113,7 +113,7 @@ class LinkHTMLTests: XCTestCase {
   }
 
   func testConversionToHTML() {
-    let html = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
+    let html = "<link href=\"/style.css\" rel=\"stylesheet\" type=\"text/css\" />"
     XCTAssertEqual(link.html, html)
   }
 }
