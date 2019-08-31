@@ -14,10 +14,10 @@ public struct Link: Equatable, Hashable {
     self.parameters = parameters ?? [:]
   }
 
-  /// Returns the hash value
-  public var hashValue: Int {
-    return uri.hashValue
-  }
+//  /// Returns the hash value
+//  public var hashValue: Int {
+//    return uri.hashValue
+//  }
 
   /// Relation type of the Link.
   public var relationType: String? {
@@ -35,10 +35,10 @@ public struct Link: Equatable, Hashable {
   }
 }
 
-/// Returns whether two Link's are equivalent
-public func == (lhs: Link, rhs: Link) -> Bool {
-  return lhs.uri == rhs.uri && lhs.parameters == rhs.parameters
-}
+///// Returns whether two Link's are equivalent
+//public func == (lhs: Link, rhs: Link) -> Bool {
+//  return lhs.uri == rhs.uri && lhs.parameters == rhs.parameters
+//}
 
 // MARK: HTML Element Conversion
 
@@ -49,7 +49,7 @@ extension Link {
     let components = parameters.map { key, value in
       "\(key)=\"\(value)\""
       } + ["href=\"\(uri)\""]
-    let elements = components.joined(separator: " ")
+    let elements = components.sorted().joined(separator: " ")
     return "<link \(elements) />"
   }
 }
@@ -63,7 +63,7 @@ extension Link {
     let components = ["<\(uri)>"] + parameters.map { key, value in
       "\(key)=\"\(value)\""
     }
-    return components.joined(separator: "; ")
+    return components.sorted().joined(separator: "; ")
   }
 
   /*** Initialize a Link with a HTTP Link header
