@@ -112,8 +112,8 @@ class LinkHTMLTests: XCTestCase {
     link = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
   }
 
-//  func testConversionToHTML() {
-//    let html = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
-//    XCTAssertEqual(link.html, html)
-//  }
+  func testConversionToHTML() {
+    let html = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
+    XCTAssertEqual(link.html, html)
+  }
 }
