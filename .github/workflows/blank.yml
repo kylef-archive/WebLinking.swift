@@ -11,8 +11,9 @@ jobs:
     - uses: actions/checkout@v1
     - name: Install cocoapods
       run: gem install cocoapods
-    - name: Run a multi-line script
-      run: |
-        xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk macosx | xcpretty
-        xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
-        pod lib lint --quick
+    - name: Run mac os x tests
+      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk macosx | xcpretty
+    - name: Run ios tests
+      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+    - name: Run pod lint
+      run: pod lib lint --quick
