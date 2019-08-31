@@ -171,7 +171,7 @@ func split(_ separator: String) -> (String) -> (String, String) {
 
 /// Separate the first element in an array from the rest
 func takeFirst(_ input: [String]) -> (String, ArraySlice<String>) {
-  if let first = input.first {
+  if let first = input.first, first.count > 0 {
     let items = input[input.indices.suffix(from: (input.startIndex + 1))]
     return (first, items)
   }
