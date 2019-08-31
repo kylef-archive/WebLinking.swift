@@ -12,8 +12,8 @@ jobs:
     - name: Install cocoapods
       run: gem install cocoapods
     - name: Run mac os x tests
-      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk macosx | xcpretty
+      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk macosx | xcpretty && exit ${PIPESTATUS[0]}
     - name: Run ios tests
-      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty
+      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO | xcpretty && exit ${PIPESTATUS[0]}
     - name: Run pod lint
       run: pod lib lint --quick
