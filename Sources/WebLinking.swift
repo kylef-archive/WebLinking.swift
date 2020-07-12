@@ -14,11 +14,6 @@ public struct Link: Equatable, Hashable {
     self.parameters = parameters ?? [:]
   }
 
-  /// Returns the hash value
-  public var hashValue: Int {
-    return uri.hashValue
-  }
-
   /// Relation type of the Link.
   public var relationType: String? {
     return parameters["rel"]
@@ -35,11 +30,6 @@ public struct Link: Equatable, Hashable {
   }
 }
 
-/// Returns whether two Link's are equivalent
-public func == (lhs: Link, rhs: Link) -> Bool {
-  return lhs.uri == rhs.uri && lhs.parameters == rhs.parameters
-}
-
 // MARK: HTML Element Conversion
 
 /// An extension to Link to provide conversion to a HTML element
@@ -49,7 +39,7 @@ extension Link {
     let components = parameters.map { key, value in
       "\(key)=\"\(value)\""
       } + ["href=\"\(uri)\""]
-    let elements = components.joined(separator: " ")
+    let elements = components.sorted().joined(separator: " ")
     return "<link \(elements) />"
   }
 }
@@ -63,7 +53,7 @@ extension Link {
     let components = ["<\(uri)>"] + parameters.map { key, value in
       "\(key)=\"\(value)\""
     }
-    return components.joined(separator: "; ")
+    return components.sorted().joined(separator: "; ")
   }
 
   /*** Initialize a Link with a HTTP Link header
@@ -181,7 +171,7 @@ func split(_ separator: String) -> (String) -> (String, String) {
 
 /// Separate the first element in an array from the rest
 func takeFirst(_ input: [String]) -> (String, ArraySlice<String>) {
-  if let first = input.first {
+  if let first = input.first, first.count > 0 {
     let items = input[input.indices.suffix(from: (input.startIndex + 1))]
     return (first, items)
   }
@@ -193,7 +183,7 @@ func takeFirst(_ input: [String]) -> (String, ArraySlice<String>) {
 func trim(_ lhs: Character, _ rhs: Character) -> (String) -> String {
   return { input in
     if input.hasPrefix("\(lhs)") && input.hasSuffix("\(rhs)") {
-      return String(input[input.characters.index(after: input.startIndex)..<input.characters.index(before: input.endIndex)])
+      return String(input[input.index(after: input.startIndex)..<input.index(before: input.endIndex)])
     }
 
     return input

@@ -39,10 +39,10 @@ class LinkTests: XCTestCase {
 
   // MARK: Hashable
 
-  func testHashable() {
-    let otherLink = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
-    XCTAssertEqual(link.hashValue, otherLink.hashValue)
-  }
+//  func testHashable() {
+//    let otherLink = Link(uri: "/style.css", parameters: ["rel": "stylesheet", "type": "text/css"])
+//    XCTAssertEqual(link.hashValue, otherLink.hashValue)
+//  }
 }
 
 class LinkHeaderTests: XCTestCase {
@@ -90,6 +90,50 @@ class LinkHeaderTests: XCTestCase {
 
     XCTAssertEqual(foundLink, link)
   }
+  
+  func testResponseFindNoLinkParameters() {
+    let url = URL(string: "http://test.com/")!
+    let headers = [
+      "Link": "random; text",
+    ]
+    let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headers)!
+    let foundLink = response.findLink(["rel": "stylesheet"])
+    
+    XCTAssertNil(foundLink)
+  }
+  
+  func testResponseNoLinkParameters() {
+    let url = URL(string: "http://test.com/")!
+    let headers = [
+      "Link2": "random text",
+    ]
+    let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headers)!
+    let foundLink = response.findLink(["rel": "stylesheet"])
+    
+    XCTAssertNil(foundLink)
+  }
+  
+  func testResponseNotALinkParameters() {
+    let url = URL(string: "http://test.com/")!
+    let headers = [
+      "Link": "random text",
+    ]
+    let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headers)!
+    let foundLink = response.findLink(["rel": "stylesheet"])
+    
+    XCTAssertNil(foundLink)
+  }
+  
+  func testResponseFindAnotherLinkParameters() {
+    let url = URL(string: "http://test.com/")!
+    let headers = [
+      "Link": "</style.css>; rel=\"stylesheet\"; type=\"text/css\", </style.css>; rel=\"stylesheet\"; type=\"text/css\"",
+    ]
+    let response = HTTPURLResponse(url: url, statusCode: 200, httpVersion: nil, headerFields: headers)!
+    let foundLink = response.findLink(["rel": "someImage"])
+    
+    XCTAssertNil(foundLink)
+  }
 
   func testResponseFindLinkRelation() {
     let url = URL(string: "http://test.com/")!
@@ -113,7 +157,44 @@ class LinkHTMLTests: XCTestCase {
   }
 
   func testConversionToHTML() {
-    let html = "<link rel=\"stylesheet\" type=\"text/css\" href=\"/style.css\" />"
+    let html = "<link href=\"/style.css\" rel=\"stylesheet\" type=\"text/css\" />"
     XCTAssertEqual(link.html, html)
   }
+}
+
+
+class LinkWihoutParamentersTests: XCTestCase {
+  var link:Link!
+  
+  override func setUp() {
+    super.setUp()
+    link = Link(uri: "/style.css")
+  }
+  
+  func testHasURI() {
+    XCTAssertEqual(link.uri, "/style.css")
+  }
+  
+  func testHasParameters() {
+    XCTAssertEqual(link.parameters, [:])
+}
+}
+
+
+class EmptyHeaderLinkTests: XCTestCase {
+  var link:Link!
+  
+  override func setUp() {
+    super.setUp()
+    link = Link(header: String())
+  }
+  
+  func testHasURI() {
+    XCTAssertEqual(link.uri, "")
+  }
+  
+  func testHasParameters() {
+    XCTAssertEqual(link.parameters, [:])
+  }
+
 }
