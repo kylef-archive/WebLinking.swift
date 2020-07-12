@@ -21,9 +21,9 @@ jobs:
       run: gem install cocoapods
     - name: Run mac os x tests
       run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -destination "platform=macOS" | xcpretty && exit ${PIPESTATUS[0]}
-    - name: Run ios tests
-      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -destination "name=iPhone 11 Pro" ONLY_ACTIVE_ARCH=NO | xcpretty && exit ${PIPESTATUS[0]}
     - name: Upload results
       run: bash <(curl -s https://codecov.io/bash)
+    - name: Run ios tests
+      run: xcodebuild -project WebLinking.xcodeproj -scheme WebLinking test -destination "name=iPhone 11 Pro" ONLY_ACTIVE_ARCH=NO | xcpretty && exit ${PIPESTATUS[0]}
     - name: Run pod lint
       run: pod lib lint --quick
